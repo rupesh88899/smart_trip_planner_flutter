@@ -8,15 +8,7 @@ import 'package:smart_trip_planner_flutter_main/services/storage_service.dart';
 import 'package:smart_trip_planner_flutter_main/ui/views/followup_itinerarie/followup_itinerarie_view.dart';
 import 'package:smart_trip_planner_flutter_main/ui/views/itinerary/itinerary_view.dart';
 import 'package:stacked/stacked.dart';
-// import 'package:smart_trip_planner_flutter/app/app.locator.dart';
-// import 'package:smart_trip_planner_flutter/data/models/chat_message.dart';
-// import 'package:smart_trip_planner_flutter/data/models/saved_conversation.dart';
-// import 'package:smart_trip_planner_flutter/services/storage_service.dart';
-// import 'package:smart_trip_planner_flutter/services/network_service.dart';
-// import 'package:smart_trip_planner_flutter/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
-// import 'package:smart_trip_planner_flutter/ui/views/itinerary/itinerary_view.dart';
-// import 'package:smart_trip_planner_flutter/ui/views/followup_itinerarie/followup_itinerarie_view.dart';
 
 class HomeViewModel extends BaseViewModel {
   final _storageService = locator<StorageService>();

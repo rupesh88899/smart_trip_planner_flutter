@@ -6,16 +6,9 @@ import 'package:smart_trip_planner_flutter_main/data/models/itinerary_model.dart
 import 'package:smart_trip_planner_flutter_main/services/gemini_service.dart';
 import 'package:smart_trip_planner_flutter_main/services/storage_service.dart';
 import 'package:smart_trip_planner_flutter_main/ui/views/followup_itinerarie/followup_itinerarie_view.dart';
-// import 'package:smart_trip_planner_flutter/app/app.router.dart';
-// import 'package:smart_trip_planner_flutter/ui/views/followup_itinerarie/followup_itinerarie_view.dart';
-// import 'package:smart_trip_planner_flutter/services/gemini_service.dart';
-// import 'package:smart_trip_planner_flutter/data/models/itinerary_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-// import 'package:smart_trip_planner_flutter/app/app.locator.dart';
 import 'package:url_launcher/url_launcher.dart';
-// import 'package:smart_trip_planner_flutter/services/storage_service.dart';
-// import 'package:smart_trip_planner_flutter/services/itinerary_processor.dart';
 
 class ItineraryViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();

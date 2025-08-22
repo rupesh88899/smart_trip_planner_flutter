@@ -14,7 +14,7 @@ import 'package:url_launcher/url_launcher.dart';
 class FollowupItinerarieView extends StackedView<FollowupItinerarieViewModel> {
   final Map<String, dynamic>? arguments;
 
-  const FollowupItinerarieView({Key? key, this.arguments}) : super(key: key);
+  const FollowupItinerarieView({super.key, this.arguments});
 
   @override
   Widget builder(

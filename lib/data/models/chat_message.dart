@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-// import 'package:smart_trip_planner_flutter/data/models/itinerary_model.dart';
 import 'package:smart_trip_planner_flutter_main/data/models/itinerary_model.dart';
 
 part 'chat_message.g.dart';

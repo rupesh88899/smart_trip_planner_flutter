@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_trip_planner_flutter_main/data/models/saved_conversation.dart';
 import 'package:stacked/stacked.dart';
-// import 'package:smart_trip_planner_flutter/ui/common/app_colors.dart';
-// import 'package:smart_trip_planner_flutter/ui/common/ui_helpers.dart';
-// import 'package:smart_trip_planner_flutter/app/app.router.dart';
-
 import 'home_viewmodel.dart';
-// import 'package:smart_trip_planner_flutter/data/models/saved_conversation.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
   const HomeView({super.key});

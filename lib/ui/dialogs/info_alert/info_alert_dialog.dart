@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_trip_planner_flutter_main/ui/common/app_colors.dart';
 import 'package:smart_trip_planner_flutter_main/ui/common/ui_helpers.dart';
-// import 'package:smart_trip_planner_flutter/ui/common/app_colors.dart';
-// import 'package:smart_trip_planner_flutter/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

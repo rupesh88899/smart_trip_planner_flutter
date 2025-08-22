@@ -2,8 +2,7 @@ import 'dart:convert';
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:smart_trip_planner_flutter_main/data/models/itinerary_model.dart';
-// import 'package:smart_trip_planner_flutter/data/models/itinerary_model.dart';
-// import 'package:smart_trip_planner_flutter/firebase_options.dart';
+
 
 class GeminiService {
   GenerativeModel? _functionCallModel;

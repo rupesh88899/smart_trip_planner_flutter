@@ -1,13 +1,6 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
-
-// **************************************************************************
-// StackedLocatorGenerator
-// **************************************************************************
 
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-// import 'package:smart_trip_planner_flutter/data/repositories/conversation_repository.dart';
-// import 'package:smart_trip_planner_flutter/data/repositories/hive_conversation_repository.dart';
 import 'package:smart_trip_planner_flutter_main/data/repositories/conversation_repository.dart';
 import 'package:smart_trip_planner_flutter_main/data/repositories/hive_conversation_repository.dart';
 import 'package:stacked_services/src/bottom_sheet/bottom_sheet_service.dart';

@@ -1,4 +1,4 @@
-// import 'dart:convert';
+
 import 'package:hive/hive.dart';
 
 part 'itinerary_model.g.dart';

@@ -1,8 +1,6 @@
 import 'package:smart_trip_planner_flutter_main/app/app.locator.dart';
 import 'package:smart_trip_planner_flutter_main/app/app.router.dart';
 import 'package:stacked/stacked.dart';
-// import 'package:smart_trip_planner_flutter/app/app.locator.dart';
-// import 'package:smart_trip_planner_flutter/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class StartupViewModel extends BaseViewModel {

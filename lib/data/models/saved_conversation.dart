@@ -1,8 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:smart_trip_planner_flutter_main/data/models/chat_message.dart';
 import 'package:smart_trip_planner_flutter_main/data/models/itinerary_model.dart';
-// import 'package:smart_trip_planner_flutter/data/models/chat_message.dart';
-// import 'package:smart_trip_planner_flutter/data/models/itinerary_model.dart';
 
 part 'saved_conversation.g.dart';
 

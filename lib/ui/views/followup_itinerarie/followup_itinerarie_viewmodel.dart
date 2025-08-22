@@ -8,11 +8,6 @@ import 'package:smart_trip_planner_flutter_main/services/gemini_service.dart';
 import 'package:smart_trip_planner_flutter_main/services/storage_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-// import 'package:smart_trip_planner_flutter/app/app.locator.dart';
-// import 'package:smart_trip_planner_flutter/data/models/itinerary_model.dart';
-// import 'package:smart_trip_planner_flutter/services/gemini_service.dart';
-// import 'package:smart_trip_planner_flutter/services/storage_service.dart';
-// import 'package:smart_trip_planner_flutter/services/itinerary_processor.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FollowupItinerarieViewModel extends BaseViewModel {

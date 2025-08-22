@@ -1,11 +1,6 @@
-// import 'dart:isolate';
-// import 'dart:convert';
 
 import 'package:smart_trip_planner_flutter_main/data/models/itinerary_model.dart';
 import 'package:smart_trip_planner_flutter_main/services/gemini_service.dart';
-// import 'package:smart_trip_planner_flutter/data/models/itinerary_model.dart';
-// import 'package:smart_trip_planner_flutter/services/gemini_service.dart';
-
 class StreamingItineraryProcessor {
   static Stream<String> processWithStreaming({
     required String userPrompt,
