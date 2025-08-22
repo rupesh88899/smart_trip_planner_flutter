@@ -12,7 +12,3 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
-
-
-# Firebase config file
-**/*.google-services.json
