@@ -163,15 +163,29 @@ class HomeView extends StackedView<HomeViewModel> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                const Center(
-                  child: Text(
-                    'Offline Saved Itineraries',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Offline Saved Itineraries',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
+                    TextButton(
+                      onPressed: () => viewModel.refreshConversations(),
+                      child: const Text(
+                        "Reload",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.green,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
                 const SizedBox(height: 20),
                 SizedBox(
@@ -275,6 +289,13 @@ class HomeView extends StackedView<HomeViewModel> {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.delete, color: Colors.red),
+              tooltip: 'Delete',
+              onPressed: () {
+                viewModel.onDeleteConversation(conversation.id);
+              },
             ),
           ],
         ),

@@ -125,7 +125,7 @@ class ItineraryView extends StackedView<ItineraryViewModel> {
           ),
           const SizedBox(height: 20),
           const Text(
-            'Curating a perfect plan for you...',
+            'Creating a perfect plan for you...',
             style: TextStyle(
               fontSize: 16,
               color: Colors.black,

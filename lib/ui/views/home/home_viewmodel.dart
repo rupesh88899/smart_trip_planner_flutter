@@ -115,7 +115,7 @@ class HomeViewModel extends BaseViewModel {
 
   void onVoiceInputTap() {}
 
-  void onCreateItineraryTap() async {
+  Future<void> onCreateItineraryTap() async {
     final tripDescription = tripDescriptionController.text.trim();
     if (tripDescription.isEmpty) {
       Fluttertoast.showToast(
@@ -140,9 +140,15 @@ class HomeViewModel extends BaseViewModel {
       return;
     }
 
-    _navigationService.navigateToView(ItineraryView(
-      arguments: {'tripDescription': tripDescription},
-    ));
+    // Wait for result when navigating
+    final result = await _navigationService.navigateToView(
+      ItineraryView(arguments: {'tripDescription': tripDescription}),
+    );
+
+    // If user saved offline, refresh list
+    if (result == true) {
+      await refreshConversations();
+    }
   }
 
   @override

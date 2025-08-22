@@ -256,7 +256,24 @@ class ItineraryViewModel extends BaseViewModel {
           chatHistory: chatHistory,
           currentItinerary: _itinerary,
         );
-      } catch (e) {}
+
+        Fluttertoast.showToast(
+          msg: "Conversation saved offline.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
+        _navigationService.back(result: true);
+      } catch (e) {
+        Fluttertoast.showToast(
+          msg: "Failed to save conversation: ${e.toString()}",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
+      }
     } else {
       Fluttertoast.showToast(
         msg: "No itinerary to save.",
