@@ -130,14 +130,45 @@ class FollowupItinerarieViewModel extends BaseViewModel {
     );
   }
 
-  Future<void> onOpenMapsTapWithCoordinates(String coordinates) async {
-    try {
-      final url = 'https://www.google.com/maps?q=$coordinates';
-      final uri = Uri.parse(url);
+  // Future<void> onOpenMapsTapWithCoordinates(String coordinates) async {
+  //   try {
+  //     final url = 'https://www.google.com/maps?q=$coordinates';
+  //     print('Launching Google Maps URL1: $url');
+  //     final uri = Uri.parse(url);
 
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
-      } else {
+  //     if (await canLaunchUrl(uri)) {
+  //       await launchUrl(uri, mode: LaunchMode.externalApplication);
+  //     } else {
+  //       Fluttertoast.showToast(
+  //         msg: "Could not open Google Maps.",
+  //         toastLength: Toast.LENGTH_SHORT,
+  //         gravity: ToastGravity.BOTTOM,
+  //         backgroundColor: Colors.red,
+  //         textColor: Colors.white,
+  //       );
+  //     }
+  //   } catch (e) {
+  //     Fluttertoast.showToast(
+  //       msg: "Failed to open maps: ${e.toString()}",
+  //       toastLength: Toast.LENGTH_SHORT,
+  //       gravity: ToastGravity.BOTTOM,
+  //       backgroundColor: Colors.red,
+  //       textColor: Colors.white,
+  //     );
+  //   }
+  // }
+  Future<void> onOpenMapsTapWithCoordinates(String coordinates) async {
+    final Uri uri = Uri.parse(
+      'https://www.google.com/maps/search/?api=1&query=$coordinates',
+    );
+
+    try {
+      final bool launched = await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
+
+      if (!launched) {
         Fluttertoast.showToast(
           msg: "Could not open Google Maps.",
           toastLength: Toast.LENGTH_SHORT,
@@ -148,7 +179,7 @@ class FollowupItinerarieViewModel extends BaseViewModel {
       }
     } catch (e) {
       Fluttertoast.showToast(
-        msg: "Failed to open maps: ${e.toString()}",
+        msg: "Failed to open maps: $e",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.red,
@@ -156,6 +187,7 @@ class FollowupItinerarieViewModel extends BaseViewModel {
       );
     }
   }
+
 
   Future<void> onSendMessage() async {
     if (_isReadOnly) {
