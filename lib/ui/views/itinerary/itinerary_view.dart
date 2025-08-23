@@ -109,7 +109,7 @@ class ItineraryView extends StackedView<ItineraryViewModel> {
                         ),
                         child: const Center(
                           child: Text(
-                            'S',
+                            'R',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,

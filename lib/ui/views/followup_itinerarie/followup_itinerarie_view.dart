@@ -234,7 +234,7 @@ class FollowupItinerarieView extends StackedView<FollowupItinerarieViewModel> {
                 ),
                 child: const Center(
                   child: Text(
-                    'S',
+                    'R',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
