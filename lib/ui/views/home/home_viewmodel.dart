@@ -156,7 +156,6 @@ class HomeViewModel extends BaseViewModel {
     }
   }
 
-  @override
   Future<void> _loadUserName() async {
     final box = await Hive.openBox('userPrefs');
     _userName = box.get('userName', defaultValue: '');

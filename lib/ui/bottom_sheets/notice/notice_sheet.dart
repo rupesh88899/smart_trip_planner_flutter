@@ -11,7 +11,8 @@ import 'notice_sheet_model.dart';
 class NoticeSheet extends StackedView<NoticeSheetModel> {
   final Function(SheetResponse)? completer;
   final SheetRequest request;
-  const NoticeSheet({super.key, required this.completer, required this.request});
+  const NoticeSheet(
+      {super.key, required this.completer, required this.request});
 
   @override
   Widget builder(
@@ -39,7 +40,7 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
           verticalSpaceTiny,
           Text(
             request.description!,
-            style: const TextStyle(fontSize: 14, color: kcMediumGrey),
+            style: const TextStyle(fontSize: 14, color: kcSecondaryTextColor),
             maxLines: 3,
             softWrap: true,
           ),

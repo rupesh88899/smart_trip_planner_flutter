@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_trip_planner_flutter_main/ui/common/app_colors.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-// import 'package:smart_trip_planner_flutter/app/app.locator.dart';
-import 'dart:convert';
-// import 'package:smart_trip_planner_flutter/services/gemini_service.dart';
-// import 'package:smart_trip_planner_flutter/data/models/itinerary_model.dart';
-import 'package:url_launcher/url_launcher.dart';
-// import 'package:smart_trip_planner_flutter/services/storage_service.dart';
-
 import 'itinerary_viewmodel.dart';
 
 class ItineraryView extends StackedView<ItineraryViewModel> {
@@ -22,76 +15,138 @@ class ItineraryView extends StackedView<ItineraryViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FA),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      backgroundColor: kcBackgroundColor,
+      body: Stack(
+        children: [
+          // Background design elements
+          Positioned(
+            top: -100,
+            right: -100,
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  colors: [
+                    kcGradientStart.withOpacity(0.1),
+                    kcGradientEnd.withOpacity(0.1),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: -50,
+            left: -50,
+            child: Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  colors: [
+                    kcSecondaryColor.withOpacity(0.1),
+                    kcAccentColor.withOpacity(0.1),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      GestureDetector(
-                        onTap: viewModel.onBackTap,
-                        child: const Icon(Icons.arrow_back, size: 24),
+                      Row(
+                        children: [
+                          GestureDetector(
+                            onTap: viewModel.onBackTap,
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: kcPrimaryColor.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: kcPrimaryColor,
+                                size: 24,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          const Text(
+                            'Home',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 8),
-                      const Text(
-                        'Home',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [kcGradientStart, kcGradientEnd],
+                          ),
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: kcPrimaryColor.withOpacity(0.2),
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'S',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF4CAF50),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'S',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: Text(
+                      viewModel.isLoading || viewModel.isGenerating
+                          ? 'Creating Itinerary...'
+                          : 'Itinerary Created',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
                   ),
+                  const SizedBox(height: 30),
+                  Expanded(
+                    child: viewModel.isLoading || viewModel.isGenerating
+                        ? _buildLoadingCard(viewModel)
+                        : _buildItineraryCard(viewModel),
+                  ),
+                  const SizedBox(height: 20),
+                  _buildActionButtons(viewModel, context),
+                  const SizedBox(height: 20),
                 ],
               ),
-              const SizedBox(height: 20),
-              Center(
-                child: Text(
-                  viewModel.isLoading || viewModel.isGenerating
-                      ? 'Creating Itinerary...'
-                      : 'Itinerary Created',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30),
-              Expanded(
-                child: viewModel.isLoading || viewModel.isGenerating
-                    ? _buildLoadingCard(viewModel)
-                    : _buildItineraryCard(viewModel),
-              ),
-              const SizedBox(height: 20),
-              _buildActionButtons(viewModel, context),
-              const SizedBox(height: 20),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -101,16 +156,19 @@ class ItineraryView extends StackedView<ItineraryViewModel> {
       width: double.infinity,
       padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        color: kcCardColor,
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-            spreadRadius: 0,
+            color: kcPrimaryColor.withOpacity(0.1),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
           ),
         ],
+        border: Border.all(
+          color: kcGradientStart.withOpacity(0.1),
+          width: 1,
+        ),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -192,11 +250,21 @@ class ItineraryView extends StackedView<ItineraryViewModel> {
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFF2196F3), width: 1),
+        color: kcCardColor,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: kcPrimaryColor.withOpacity(0.1),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
+          ),
+        ],
+        border: Border.all(
+          color: kcGradientStart.withOpacity(0.1),
+          width: 1,
+        ),
       ),
       child: ListView(
         shrinkWrap: true,
@@ -312,30 +380,27 @@ class ItineraryView extends StackedView<ItineraryViewModel> {
         Container(
           width: double.infinity,
           height: 56,
-          decoration: isDisabled
-              ? BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.green[200],
-                )
-              : BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  gradient: const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFF2E8B57),
-                      Color(0xFF1B5E20),
-                    ],
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 4),
-                      spreadRadius: 0,
-                    ),
-                  ],
-                ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: isDisabled
+                  ? [
+                      kcGradientStart.withOpacity(0.3),
+                      kcGradientEnd.withOpacity(0.3)
+                    ]
+                  : [kcGradientStart, kcGradientEnd],
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+                spreadRadius: 0,
+              ),
+            ],
+          ),
           child: ElevatedButton.icon(
             onPressed:
                 isDisabled ? null : () => viewModel.onFollowUpTap(context),

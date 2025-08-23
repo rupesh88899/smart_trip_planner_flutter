@@ -12,7 +12,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ItineraryViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-  final _dialogService = locator<DialogService>();
   final _geminiService = locator<GeminiService>();
   final _storageService = locator<StorageService>();
 
@@ -92,51 +91,6 @@ class ItineraryViewModel extends BaseViewModel {
           _isGenerating = false;
           notifyListeners();
           return;
-        } catch (e) {}
-      }
-
-      if (_itinerary == null) {
-        _isGenerating = false;
-        notifyListeners();
-      }
-    } catch (e) {
-      _isGenerating = false;
-      _generatedContent = 'Error generating itinerary: ${e.toString()}';
-      _streamingText = _generatedContent;
-      notifyListeners();
-
-      Fluttertoast.showToast(
-        msg: "Failed to generate itinerary. Please try again.",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-      );
-    }
-  }
-
-  Future<void> _generateItinerary() async {
-    try {
-      String fullResponse = '';
-      _streamingText = '';
-
-      await for (String chunk
-          in _geminiService.generateItinerary(tripDescription)) {
-        fullResponse += chunk;
-        _generatedContent = fullResponse;
-
-        _streamingText = fullResponse;
-        notifyListeners();
-
-        try {
-          String cleanedResponse = _cleanJsonResponse(fullResponse);
-
-          final jsonData = json.decode(cleanedResponse);
-
-          _itinerary = Itinerary.fromJson(jsonData);
-          _isGenerating = false;
-          notifyListeners();
-          break;
         } catch (e) {}
       }
 

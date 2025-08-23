@@ -1,15 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:smart_trip_planner_flutter_main/data/models/itinerary_model.dart';
+import 'package:smart_trip_planner_flutter_main/ui/common/app_colors.dart';
 import 'package:smart_trip_planner_flutter_main/ui/views/followup_itinerarie/followup_itinerarie_viewmodel.dart';
-// import 'package:smart_trip_planner_flutter/ui/views/followup_itinerarie/followup_itinerarie_viewmodel.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-// import 'package:smart_trip_planner_flutter/app/app.locator.dart';
-// import 'package:smart_trip_planner_flutter/data/models/itinerary_model.dart';
-// import 'package:smart_trip_planner_flutter/services/gemini_service.dart';
-// import 'package:smart_trip_planner_flutter/services/storage_service.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class FollowupItinerarieView extends StackedView<FollowupItinerarieViewModel> {
   final Map<String, dynamic>? arguments;
@@ -23,36 +16,69 @@ class FollowupItinerarieView extends StackedView<FollowupItinerarieViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Top App Bar
-            _buildAppBar(viewModel),
-
-            // Main Content Area
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: ListView.builder(
-                  itemCount: viewModel.chatHistory.length +
-                      (viewModel.isThinking ? 1 : 0),
-                  itemBuilder: (context, index) {
-                    if (index < viewModel.chatHistory.length) {
-                      return _buildChatItem(
-                          viewModel.chatHistory[index], viewModel);
-                    } else {
-                      return _buildThinkingMessage(viewModel);
-                    }
-                  },
+      backgroundColor: kcBackgroundColor,
+      body: Stack(
+        children: [
+          //background design elements
+          Positioned(
+            top: -100,
+            right: -100,
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  colors: [
+                    kcGradientStart.withOpacity(0.1),
+                    kcGradientEnd.withOpacity(0.1),
+                  ],
                 ),
               ),
             ),
-            const SizedBox(height: 16),
-            // Bottom Input Field
-            _buildBottomInputField(viewModel),
-          ],
-        ),
+          ),
+          Positioned(
+            bottom: -50,
+            left: -50,
+            child: Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  colors: [
+                    kcSecondaryColor.withOpacity(0.1),
+                    kcAccentColor.withOpacity(0.1),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SafeArea(
+            child: Column(
+              children: [
+                _buildAppBar(viewModel),
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 16),
+                    itemCount: viewModel.chatHistory.length +
+                        (viewModel.isThinking ? 1 : 0),
+                    itemBuilder: (context, index) {
+                      if (index < viewModel.chatHistory.length) {
+                        return _buildChatItem(
+                            viewModel.chatHistory[index], viewModel);
+                      } else {
+                        return _buildThinkingMessage(viewModel);
+                      }
+                    },
+                  ),
+                ),
+                _buildBottomInputField(viewModel),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -60,38 +86,83 @@ class FollowupItinerarieView extends StackedView<FollowupItinerarieViewModel> {
   Widget _buildAppBar(FollowupItinerarieViewModel viewModel) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        border: Border(
-          bottom: BorderSide(color: Color(0xFFE0E0E0), width: 1),
+      decoration: BoxDecoration(
+        color: kcCardColor,
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: kcPrimaryColor.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         children: [
           GestureDetector(
             onTap: viewModel.onBackTap,
-            child: const Icon(Icons.arrow_back, size: 24),
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: kcPrimaryColor.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                Icons.arrow_back,
+                size: 24,
+                color: kcPrimaryColor,
+              ),
+            ),
           ),
           const SizedBox(width: 16),
           Expanded(
-            child: Text(
-              viewModel.tripDescription.length > 30
-                  ? '${viewModel.tripDescription.substring(0, 30)}...'
-                  : viewModel.tripDescription,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  viewModel.tripDescription.length > 30
+                      ? '${viewModel.tripDescription.substring(0, 30)}...'
+                      : viewModel.tripDescription,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: kcPrimaryTextColor,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Your Trip Plan',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: kcSecondaryTextColor,
+                  ),
+                ),
+              ],
             ),
           ),
           Container(
             width: 40,
             height: 40,
-            decoration: const BoxDecoration(
-              color: Color(0xFF4CAF50),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  kcGradientStart,
+                  kcGradientEnd,
+                ],
+              ),
               shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: kcPrimaryColor.withOpacity(0.2),
+                  blurRadius: 8,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
             child: const Center(
               child: Text(
@@ -135,9 +206,19 @@ class FollowupItinerarieView extends StackedView<FollowupItinerarieViewModel> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFFE0E0E0), width: 1),
+        color: kcCardColor,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: kcPrimaryColor.withOpacity(0.08),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+        border: Border.all(
+          color: kcGradientStart.withOpacity(0.1),
+          width: 1,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -397,9 +478,19 @@ class FollowupItinerarieView extends StackedView<FollowupItinerarieViewModel> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFFE0E0E0), width: 1),
+        color: kcCardColor,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: kcPrimaryColor.withOpacity(0.08),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+        border: Border.all(
+          color: kcGradientEnd.withOpacity(0.1),
+          width: 1,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -549,29 +640,6 @@ class FollowupItinerarieView extends StackedView<FollowupItinerarieViewModel> {
     );
   }
 
-  Widget _buildActionButtons(FollowupItinerarieViewModel viewModel) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        _buildActionButton(
-          icon: Icons.copy,
-          label: 'Copy',
-          onTap: viewModel.onCopyItinerary,
-        ),
-        _buildActionButton(
-          icon: Icons.send,
-          label: 'Save Offline',
-          onTap: viewModel.onSaveOffline,
-        ),
-        _buildActionButton(
-          icon: Icons.refresh,
-          label: 'Regenerate',
-          onTap: viewModel.onRegenerate,
-        ),
-      ],
-    );
-  }
-
   Widget _buildActionButton({
     required IconData icon,
     required String label,
@@ -604,10 +672,18 @@ class FollowupItinerarieView extends StackedView<FollowupItinerarieViewModel> {
     if (viewModel.isReadOnly) {
       return Container(
         padding: const EdgeInsets.all(20),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          border: Border(
-            top: BorderSide(color: Color(0xFFE0E0E0), width: 1),
+        decoration: BoxDecoration(
+          color: kcCardColor,
+          boxShadow: [
+            BoxShadow(
+              color: kcPrimaryColor.withOpacity(0.08),
+              blurRadius: 8,
+              offset: const Offset(0, -4),
+            ),
+          ],
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
         ),
         child: Row(
@@ -634,10 +710,18 @@ class FollowupItinerarieView extends StackedView<FollowupItinerarieViewModel> {
 
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        color: Color(0xFFF8F9FA), // Light grey background
-        border: Border(
-          top: BorderSide(color: Color(0xFFE0E0E0), width: 1),
+      decoration: BoxDecoration(
+        color: kcCardColor,
+        boxShadow: [
+          BoxShadow(
+            color: kcPrimaryColor.withOpacity(0.08),
+            blurRadius: 8,
+            offset: const Offset(0, -4),
+          ),
+        ],
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
         ),
       ),
       child: Row(
@@ -648,29 +732,35 @@ class FollowupItinerarieView extends StackedView<FollowupItinerarieViewModel> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(
-                    24), // Pill-shaped with rounded corners
+                borderRadius: BorderRadius.circular(24),
                 border: Border.all(
-                  color: const Color(0xFF2E8B57), // Dark green border
+                  color: kcPrimaryColor.withOpacity(0.3),
                   width: 1,
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: kcPrimaryColor.withOpacity(0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
               child: Row(
                 children: [
                   Expanded(
                     child: TextField(
                       controller: viewModel.followUpController,
-                      decoration: const InputDecoration(
-                        hintText: 'Follow up to refine',
+                      decoration: InputDecoration(
+                        hintText: 'Type your message...',
                         border: InputBorder.none,
                         hintStyle: TextStyle(
-                          color: Colors.grey,
+                          color: kcSecondaryTextColor,
                           fontSize: 14,
                         ),
                       ),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 14,
-                        color: Colors.black,
+                        color: kcPrimaryTextColor,
                       ),
                       onSubmitted: (_) => viewModel.onSendMessage(),
                     ),
@@ -681,7 +771,7 @@ class FollowupItinerarieView extends StackedView<FollowupItinerarieViewModel> {
                     onTap: viewModel.onVoiceInputTap,
                     child: const Icon(
                       Icons.mic,
-                      color: Color(0xFF2E8B57), // Dark green color
+                      color: kcPrimaryColor,
                       size: 20,
                     ),
                   ),
@@ -696,9 +786,18 @@ class FollowupItinerarieView extends StackedView<FollowupItinerarieViewModel> {
             child: Container(
               width: 44,
               height: 44,
-              decoration: const BoxDecoration(
-                color: Color(0xFF2E8B57), // Dark green background
-                shape: BoxShape.circle,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [kcGradientStart, kcGradientEnd],
+                ),
+                borderRadius: BorderRadius.circular(22),
+                boxShadow: [
+                  BoxShadow(
+                    color: kcPrimaryColor.withOpacity(0.2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
               child: const Icon(
                 Icons.send,
@@ -715,42 +814,4 @@ class FollowupItinerarieView extends StackedView<FollowupItinerarieViewModel> {
   @override
   FollowupItinerarieViewModel viewModelBuilder(BuildContext context) =>
       FollowupItinerarieViewModel(arguments: arguments);
-}
-
-class _ItineraryItem extends StatelessWidget {
-  final String text;
-
-  const _ItineraryItem(this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 6),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 6),
-            width: 4,
-            height: 4,
-            decoration: const BoxDecoration(
-              color: Colors.black,
-              shape: BoxShape.circle,
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(
-                fontSize: 13,
-                color: Colors.black87,
-                height: 1.3,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

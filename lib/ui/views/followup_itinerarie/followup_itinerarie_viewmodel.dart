@@ -12,7 +12,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 class FollowupItinerarieViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-  final _dialogService = locator<DialogService>();
   final _geminiService = locator<GeminiService>();
   final _storageService = locator<StorageService>();
 
@@ -187,7 +186,6 @@ class FollowupItinerarieViewModel extends BaseViewModel {
       );
     }
   }
-
 
   Future<void> onSendMessage() async {
     if (_isReadOnly) {
