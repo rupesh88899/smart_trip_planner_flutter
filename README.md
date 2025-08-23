@@ -1,6 +1,7 @@
 # Smart Trip Planner (Flutter + Firebase Gemini AI)
 
 An AI-powered Flutter app that helps travellers plan trips through natural language.
+Built with **Flutter, Firebase, Riverpod, Hive, and Gemini AI**.
 
 ---
 
@@ -27,6 +28,10 @@ An AI-powered Flutter app that helps travellers plan trips through natural langu
 - version: 1.0.0+1
 - Firebase project with Gemini AI enabled  
 - Android Studio / Xcode / VS Code  
+- Firebase project with **Gemini AI enabled**
+- Installed tools:  
+  - macOS/Linux: `brew install flutter firebase-cli`  
+  - Windows: install [Flutter](https://docs.flutter.dev/get-started/install) + [Firebase CLI](https://firebase.google.com/docs/cli)
 
 ### Installation
 ```bash
@@ -66,6 +71,38 @@ lib/
 - **Riverpod 3** for state management  
 - **Repository pattern** for persistence
 
+
+### Architecture Diagram
+┌─────────────────────────────────────────────────────────────┐
+│                      Flutter App                            │
+├─────────────────────────────────────────────────────────────┤
+│                        UI Layer                             │
+│                   Views & ViewModels                        │
+├─────────────────────────────────────────────────────────────┤
+│                     Services Layer                          │
+│        Gemini Service │ Storage Service │ Network Service   │
+├─────────────────────────────────────────────────────────────┤
+│                        Data Models                          │
+│         Itinerary Model │ Chat Message Model                │
+├─────────────────────────────────────────────────────────────┤
+│                    Processing Layer                         │
+│   Isolate Processor │ Background Tasks │ JSON Validator     │
+│                     │ Function Calling                      │
+├─────────────────────────────────────────────────────────────┤
+│                   External Services                         │
+│             Firebase AI  │ Hive Local Storage               │
+│             Google Maps & Location Services                 │
+└─────────────────────────────────────────────────────────────┘
+
+
+
+
+
+- **Data Layer** → APIs, Hive DB (local storage)  
+- **Domain Layer** → Core entities (Trip, Itinerary) + business rules  
+- **Presentation Layer** → UI (Flutter widgets) + Riverpod state  
+- **Services** → Gemini AI agent, search integration, maps  
+
 ---
 
 ## 🤖 Agent Chain (How It Works)
@@ -75,7 +112,7 @@ lib/
 3. Gemini responds with **validated itinerary JSON schema**. 
 4. Flutter client renders structured cards & stores locally.  
 5. Diff-style updates when user refines plan.  
-6. Web-search tool fetches real-time info (restaurants, hotels, events).  
+6. (optional)Web-search tool fetches real-time info (restaurants, hotels, events).  
 
 ---
 
