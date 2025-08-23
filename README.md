@@ -69,26 +69,8 @@ lib/
 
 
 ### Architecture Diagram
-┌─────────────────────────────────────────────────────────────┐
-│                      Flutter App                            │
-├─────────────────────────────────────────────────────────────┤
-│                        UI Layer                             │
-│                   Views & ViewModels                        │
-├─────────────────────────────────────────────────────────────┤
-│                     Services Layer                          │
-│        Gemini Service │ Storage Service │ Network Service   │
-├─────────────────────────────────────────────────────────────┤
-│                        Data Models                          │
-│         Itinerary Model │ Chat Message Model                │
-├─────────────────────────────────────────────────────────────┤
-│                    Processing Layer                         │
-│   Isolate Processor │ Background Tasks │ JSON Validator     │
-│                     │ Function Calling                      │
-├─────────────────────────────────────────────────────────────┤
-│                   External Services                         │
-│             Firebase AI  │ Hive Local Storage               │
-│             Google Maps & Location Services                 │
-└─────────────────────────────────────────────────────────────┘
+<img width="1024" height="1536" alt="image" src="https://github.com/user-attachments/assets/1566e57a-a8fb-460f-922c-c92b6bd8c96e" />
+
 
 
 - **Data Layer** → APIs, Hive DB (local storage)  
