@@ -91,9 +91,6 @@ lib/
 └─────────────────────────────────────────────────────────────┘
 
 
-
-
-
 - **Data Layer** → APIs, Hive DB (local storage)  
 - **Domain Layer** → Core entities (Trip, Itinerary) + business rules  
 - **Presentation Layer** → UI (Flutter widgets) + Riverpod state  
