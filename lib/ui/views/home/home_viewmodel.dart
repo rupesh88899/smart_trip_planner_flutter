@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hive/hive.dart';
 import 'package:smart_trip_planner_flutter_main/app/app.locator.dart';
 import 'package:smart_trip_planner_flutter_main/data/models/chat_message.dart';
 import 'package:smart_trip_planner_flutter_main/data/models/saved_conversation.dart';
@@ -24,9 +25,13 @@ class HomeViewModel extends BaseViewModel {
   bool _hasNetworkConnection = true;
   bool get hasNetworkConnection => _hasNetworkConnection;
 
+  String _userName = '';
+  String get userName => _userName;
+
   HomeViewModel() {
     _loadSavedConversations();
     _checkNetworkConnection();
+    _loadUserName();
   }
 
   Future<void> _checkNetworkConnection() async {
@@ -149,6 +154,13 @@ class HomeViewModel extends BaseViewModel {
     if (result == true) {
       await refreshConversations();
     }
+  }
+
+  @override
+  Future<void> _loadUserName() async {
+    final box = await Hive.openBox('userPrefs');
+    _userName = box.get('userName', defaultValue: '');
+    notifyListeners();
   }
 
   @override

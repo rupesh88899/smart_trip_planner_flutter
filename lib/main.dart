@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter/foundation.dart';
 import 'package:smart_trip_planner_flutter_main/app/app.bottomsheets.dart';
 import 'package:smart_trip_planner_flutter_main/app/app.dialogs.dart';
 import 'package:smart_trip_planner_flutter_main/app/app.locator.dart';

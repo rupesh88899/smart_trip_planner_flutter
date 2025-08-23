@@ -25,9 +25,9 @@ class HomeView extends StackedView<HomeViewModel> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Hey Rupesh!',
-                      style: TextStyle(
+                    Text(
+                      'Hey ${viewModel.userName}!',
+                      style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
                         color: Color(0xFF2E7D32),

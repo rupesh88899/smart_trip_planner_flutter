@@ -1,3 +1,4 @@
+import 'package:hive/hive.dart';
 import 'package:smart_trip_planner_flutter_main/app/app.locator.dart';
 import 'package:smart_trip_planner_flutter_main/app/app.router.dart';
 import 'package:stacked/stacked.dart';
@@ -10,9 +11,14 @@ class StartupViewModel extends BaseViewModel {
   Future runStartupLogic() async {
     await Future.delayed(const Duration(seconds: 3));
 
-    // This is where you can make decisions on where your app should navigate when
-    // you have custom startup logic
+    // Check if user name is saved
+    final box = await Hive.openBox('userPrefs');
+    final userName = box.get('userName');
 
-    _navigationService.replaceWithHomeView();
+    if (userName != null) {
+      _navigationService.replaceWithHomeView();
+    } else {
+      _navigationService.replaceWithUserNameView();
+    }
   }
 }

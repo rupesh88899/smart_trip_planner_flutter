@@ -1,10 +1,14 @@
-
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart' as _i5;
 import 'package:flutter/material.dart';
-import 'package:smart_trip_planner_flutter_main/ui/views/followup_itinerarie/followup_itinerarie_view.dart' as _i4;
-import 'package:smart_trip_planner_flutter_main/ui/views/home/home_view.dart' as _i2;
-import 'package:smart_trip_planner_flutter_main/ui/views/startup/startup_view.dart' as _i3;
+import 'package:smart_trip_planner_flutter_main/ui/views/followup_itinerarie/followup_itinerarie_view.dart'
+    as _i4;
+import 'package:smart_trip_planner_flutter_main/ui/views/home/home_view.dart'
+    as _i2;
+import 'package:smart_trip_planner_flutter_main/ui/views/startup/startup_view.dart'
+    as _i3;
+import 'package:smart_trip_planner_flutter_main/ui/views/user_name/user_name_view.dart'
+    as _i7;
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i6;
 
@@ -15,10 +19,13 @@ class Routes {
 
   static const followupItinerarieView = '/followup-itinerarie-view';
 
+  static const userNameView = '/user-name-view';
+
   static const all = <String>{
     homeView,
     startupView,
     followupItinerarieView,
+    userNameView,
   };
 }
 
@@ -35,6 +42,10 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(
       Routes.followupItinerarieView,
       page: _i4.FollowupItinerarieView,
+    ),
+    _i1.RouteDef(
+      Routes.userNameView,
+      page: _i7.UserNameView,
     ),
   ];
 
@@ -58,6 +69,12 @@ class StackedRouter extends _i1.RouterBase {
       return _i5.MaterialPageRoute<dynamic>(
         builder: (context) => _i4.FollowupItinerarieView(
             key: args.key, arguments: args.arguments),
+        settings: data,
+      );
+    },
+    _i7.UserNameView: (data) {
+      return _i5.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i7.UserNameView(),
         settings: data,
       );
     },
@@ -166,6 +183,20 @@ extension NavigatorStateExtension on _i6.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.startupView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithUserNameView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.userNameView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
