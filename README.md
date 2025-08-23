@@ -16,10 +16,6 @@ Built with **Flutter, Firebase, Riverpod, Hive, and Gemini AI**.
 
 ---
 
-## 📱 Screenshots / Demo  
-*(Add screenshots or video demo link here once ready)*  
-
----
 
 ## ⚙️ Setup
 
