@@ -176,13 +176,10 @@ class HomeView extends StackedView<HomeViewModel> {
                     ),
                     TextButton(
                       onPressed: () => viewModel.refreshConversations(),
-                      child: const Text(
-                        "Reload",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.green,
-                          fontWeight: FontWeight.w500,
-                        ),
+                      child: Icon(
+                        Icons.refresh,
+                        color: Colors.green,
+                        size: 24,
                       ),
                     )
                   ],
